@@ -12,7 +12,7 @@ export const createNoteSchema = {
     content: Joi.string().min(10).max(50).required().messages({
       'string.base': 'Content must be a string',
       'string.min': 'Content should have at least {#limit} characters',
-      'string.max': 'Content should have at least {#limit} characters',
+      'string.max': 'Content should have at most {#limit} characters',
       'any.required': 'Content is required',
     }),
     tag: Joi.string()
@@ -54,7 +54,7 @@ export const updateNoteSchema = {
   [Segments.BODY]: Joi.object({
     title: Joi.string().min(3).max(20),
     content: Joi.string().min(10).max(50),
-    gender: Joi.string().valid(
+    tag: Joi.string().valid(
       'Work',
       'Personal',
       'Meeting',
@@ -67,4 +67,25 @@ export const updateNoteSchema = {
       'Todo',
     ),
   }).min(1),
+};
+
+//ВАЛІДАЦІЯ ПАРАМЕТРІВ ПАГІНАЦІЯ ТА ФІЛЬТРУВАННЯ
+export const getAllNotesSchema = {
+  [Segments.QUERY]: Joi.object({
+    page: Joi.number().integer().min(1).default(1),
+    perPage: Joi.number().integer().min(5).max(20).default(10),
+    tag: Joi.string().valid(
+      'Work',
+      'Personal',
+      'Meeting',
+      'Shopping',
+      'Ideas',
+      'Travel',
+      'Finance',
+      'Health',
+      'Important',
+      'Todo',
+    ),
+    search: Joi.string().trim(),
+  }),
 };
