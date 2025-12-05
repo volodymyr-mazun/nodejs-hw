@@ -2,7 +2,14 @@ import createHttpError from 'http-errors';
 import { Note } from '../models/note.js';
 
 export const getAllNotes = async (req, res) => {
-  const { page = 1, perPage = 10, tag, search } = req.query;
+  const {
+    page = 1,
+    perPage = 10,
+    tag,
+    search,
+    sortBy = '_id',
+    sortOrder = 'asc',
+  } = req.query;
   const pageNum = Number(page) || 1;
   const perPageNum = Number(perPage) || 10;
   const skip = (pageNum - 1) * perPageNum;
@@ -19,7 +26,10 @@ export const getAllNotes = async (req, res) => {
 
   const [totalNotes, notes] = await Promise.all([
     notesQuery.clone().countDocuments(),
-    notesQuery.skip(skip).limit(perPageNum),
+    notesQuery
+      .skip(skip)
+      .limit(perPageNum)
+      .sort({ [sortBy]: sortOrder }),
   ]);
 
   const totalPages = Math.ceil(totalNotes / perPageNum);
