@@ -87,5 +87,9 @@ export const getAllNotesSchema = {
       'Todo',
     ),
     search: Joi.string().trim(),
+    sortBy: Joi.string()
+      .valid('_id', 'title', 'content', 'createdAt')
+      .default('_id'),
+    sortOrder: Joi.string().valid('asc', 'desc').default('asc'),
   }),
 };
