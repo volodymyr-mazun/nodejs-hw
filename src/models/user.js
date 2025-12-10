@@ -15,6 +15,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
+      minlength: 8, // Мінімум 8 символів
     },
   },
   { timestamps: true, versionKey: false },
