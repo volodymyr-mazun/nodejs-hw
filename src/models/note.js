@@ -17,8 +17,13 @@ const noteSchema = new Schema(
     tag: {
       type: String,
       required: false,
-      enum: TAGS, //correct
+      enum: TAGS,
       default: 'Todo',
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
     },
   },
   {
@@ -27,7 +32,6 @@ const noteSchema = new Schema(
   },
 );
 
-//Додаємо текстовий індекс
 noteSchema.index(
   { title: 'text', content: 'text' },
   {

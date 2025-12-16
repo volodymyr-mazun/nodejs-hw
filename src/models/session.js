@@ -12,7 +12,3 @@ const sessionSchema = new Schema(
 );
 
 export const Session = model('Session', sessionSchema);
-
-// userId — власник сесії
-// accessTokenValidUntil — коли accessToken спливає
-// refreshTokenValidUntil — коли refreshToken спливає
