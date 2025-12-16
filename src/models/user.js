@@ -8,20 +8,19 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      unique: true, // Email унікальний ідентифікатор
+      unique: true,
       required: true,
       trim: true,
     },
     password: {
       type: String,
       required: true,
-      minlength: 8, // Мінімум 8 символів
+      minlength: 8,
     },
   },
   { timestamps: true, versionKey: false },
 );
 
-//Хук присвоєння email як username
 userSchema.pre('save', function (next) {
   if (!this.username) {
     this.username = this.email;
@@ -29,7 +28,6 @@ userSchema.pre('save', function (next) {
   next();
 });
 
-//Видалення паролю з відповіді
 userSchema.methods.toJSON = function () {
   const obj = this.toObject();
   delete obj.password;

@@ -7,7 +7,6 @@ export const connectMongoDB = async () => {
     await mongoose.connect(mongoUrl);
     console.log('✅ MongoDB connection established successfully');
 
-    //порівнює індекси в схемі з індексами в колекції, додає яких немає, видаляє неправильні
     await Note.syncIndexes();
     console.log('Indexes synced successfully');
   } catch (error) {
