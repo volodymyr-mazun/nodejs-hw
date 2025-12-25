@@ -3,6 +3,7 @@ import cors from 'cors';
 import authRoutes from './routes/authRoutes.js';
 import notesRoutes from './routes/notesRoutes.js';
 import cookieParser from 'cookie-parser';
+import userRoutes from './routes/userRoutes.js';
 import 'dotenv/config';
 
 import { errors } from 'celebrate';
@@ -20,6 +21,7 @@ app.use(cors());
 app.use(cookieParser());
 app.use(authRoutes);
 app.use(notesRoutes);
+app.use(userRoutes);
 app.use(notFoundHandler);
 app.use(errors());
 app.use(errorHandler);
