@@ -14,12 +14,14 @@ export const loginUserSchema = {
   }),
 };
 
+//=========СКИДАННЯ ПАРОЛЮ==========
 export const requestResetEmailSchema = {
   [Segments.BODY]: Joi.object({
     email: Joi.string().email().required(),
   }),
 };
 
+//=========ЗАМІНА ПАРОЛЮ==========
 export const resetPasswordSchema = {
   [Segments.BODY]: Joi.object({
     password: Joi.string().min(8).required(),
