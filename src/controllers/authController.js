@@ -27,7 +27,9 @@ export const registerUser = async (req, res, next) => {
   });
 
   const newSession = await createSession(newUser._id);
+
   setSessionCookies(res, newSession);
+
   res.status(201).json(newUser);
 };
 
@@ -49,6 +51,7 @@ export const loginUser = async (req, res, next) => {
 
   const newSession = await createSession(user._id);
   setSessionCookies(res, newSession);
+
   res.status(200).json(user);
 };
 
@@ -92,9 +95,7 @@ export const refreshUserSession = async (req, res, next) => {
   const newSession = await createSession(session.userId);
   setSessionCookies(res, newSession);
 
-  res.status(200).json({
-    message: 'Session refreshed',
-  });
+  res.status(200).json({ message: 'Session refreshed' });
 };
 
 //==========СКИДАННЯ ПАРОЛЮ==========
@@ -103,9 +104,9 @@ export const requestResetEmail = async (req, res) => {
 
   const user = await User.findOne({ email });
   if (!user) {
-    return res.status(200).json({
-      message: 'Password reset email sent successfully',
-    });
+    return res
+      .status(200)
+      .json({ message: 'Password reset email sent successfully' });
   }
 
   const resetToken = jwt.sign(
@@ -137,9 +138,7 @@ export const requestResetEmail = async (req, res) => {
     );
   }
 
-  res.status(200).json({
-    message: 'Password reset email sent successfully',
-  });
+  res.status(200).json({ message: 'Password reset email sent successfully' });
 };
 
 //==========ЗМІННА ПАРОЛЮ==========
@@ -147,6 +146,7 @@ export const resetPassword = async (req, res) => {
   const { token, password } = req.body;
 
   let payload;
+
   try {
     payload = jwt.verify(token, process.env.JWT_SECRET);
   } catch {
@@ -162,7 +162,5 @@ export const resetPassword = async (req, res) => {
   await User.updateOne({ _id: user._id }, { password: hashedPassword });
   await Session.deleteMany({ userId: user._id });
 
-  res.status(200).json({
-    message: 'Password reset successfully',
-  });
+  res.status(200).json({ message: 'Password reset successfully' });
 };

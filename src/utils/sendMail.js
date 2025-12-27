@@ -1,3 +1,5 @@
+//==========БЕЗПЕЧНЕ ЗЄДНАННЯ ІЗ SMTP SERVER==========
+
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({

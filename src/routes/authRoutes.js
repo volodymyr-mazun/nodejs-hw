@@ -23,12 +23,14 @@ router.post('/auth/login', celebrate(loginUserSchema), loginUser);
 router.post('/auth/logout', logoutUser);
 router.post('/auth/refresh', refreshUserSession);
 
+//=========СКИДАННЯ ПАРОЛЮ==========
 router.post(
   '/auth/request-reset-email',
   celebrate(requestResetEmailSchema),
   requestResetEmail,
 );
 
+//=========ЗАМІНА ПАРОЛЮ==========
 router.post(
   '/auth/reset-password',
   celebrate(resetPasswordSchema),
